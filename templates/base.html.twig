@@ -4,6 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" href=""/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
         <title>
             {% block title %}Projet 3 Name{% endblock %}
         </title>
@@ -16,6 +19,15 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            {% block navbar %}{% include "components/navbar.html.twig" %}{% endblock %}
+        </header>
+        <main class="container shadow-sm">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-xl-10 px-0 ">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </main>
     </body>
 </html>

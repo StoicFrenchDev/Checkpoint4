@@ -1,5 +1,12 @@
-//start coding by removing this file and adding yours ;)
-@import "wcs";
-
-
+$primary: (#3FD9EC);
+$secondary: (#FFAED3);
+$third: (#FBDEBE);
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+.bg-third {
+    background-color: #FBDEBE;
+}
+
+.title-font {
+    font-family: 'Hachi Maru Pop';
+}

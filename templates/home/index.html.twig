@@ -3,5 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<h1>hello</h1>
+<h1 class="text-center title-font mb-5 mt-5">PurrfectMatch</h1>
+<div>
+    <div class="text-center mb-5 mt-5" >Welcome to <span class="title-font">PurrfectMatch</span>, the ultimate destination for feline friendships and furry connections!
+
+        Are you a proud cat owner seeking companionship for your beloved feline friend? Or perhaps you're a cat 
+        enthusiast yearning to meet fellow cat lovers and discover adorable whiskered wonders? Look no further!
+    </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#descriptionModal">
+        Learn more abous us!
+    </button>
+</div>
+{% include "components/description.html.twig" %}
+
+
 {% endblock %}
