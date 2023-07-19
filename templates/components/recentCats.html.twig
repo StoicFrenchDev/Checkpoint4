@@ -1,0 +1,20 @@
+{% for cat in this.recentCats|slice(0, 3) %}
+<div class="col-lg-4 text-center p-2">
+
+    {% if cat.profilePicture %}
+    <img src="{{ asset('/uploads/profiles_pictures/' ~ cat.profilePicture)}}"
+        alt="photo de profil" class="rounded-circle small-profile-picture">
+    {% else %}
+    <img src="{{ asset('build/images/blank-profil-picture.png' )}}" alt="profile picture"
+        class="rounded-circle small-profile-picture">
+    {% endif %}
+
+    <h2 class="fw-normal">{{ cat.name }}</h2>
+    <p>{{ cat.description|u.truncate(100, '...', false) }}</p>
+    {% if cat.sex is same as 'Female' %}
+    <p><a class="btn btn-secondary" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a></p>
+    {% else %}
+    <p><a class="btn btn-primary" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a></p>
+    {% endif %}
+</div>
+{% endfor %}

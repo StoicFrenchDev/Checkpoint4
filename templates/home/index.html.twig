@@ -12,11 +12,17 @@
 
     </div>
     <a class="fst-italic" data-bs-toggle="modal" data-bs-target="#descriptionModal">
-        Learn more abous us!
+        Would you like to know more?
     </a>
-
 </div>
+<hr class="border-2 color-third opacity-50 my-2 ">
 {% include "components/description.html.twig" %}
+
+<div class="row">
+    <h2 class=" mb-5 mt-5">New cats on the block!</h2>
+    {{ component('recentCats') }}
+    
+</div>
 
 
 {% endblock %}

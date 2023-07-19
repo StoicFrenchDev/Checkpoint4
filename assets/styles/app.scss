@@ -6,6 +6,9 @@ $third: (#FBDEBE);
 .bg-third {
     background-color: #FBDEBE;
 }
+.color-third {
+    color: #FBDEBE;
+}
 
 .title-font {
     font-family: 'Hachi Maru Pop';
@@ -14,4 +17,13 @@ $third: (#FBDEBE);
 .profile-picture {
     width: 250px;
     height: 250px;
+}
+
+.small-profile-picture {
+    width: 140px;
+    height: 140px;
+}
+
+#description {
+    max-width: 300px;
 }

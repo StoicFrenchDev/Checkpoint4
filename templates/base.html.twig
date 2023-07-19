@@ -22,9 +22,16 @@
         <header>
             {% block navbar %}{% include "components/navbar.html.twig" %}{% endblock %}
         </header>
-        <main class="container shadow-sm vh-100 w-75">
+        <main class="container shadow p-3 w-75">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-9 col-xl-10 px-0 ">
+                    {% for category, messages in app.flashes %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
                     {% block body %}{% endblock %}
                 </div>
             </div>

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Cat;
 use App\Form\CatType;
 use App\Repository\CatRepository;
+use App\Service\FileUploader;
+use App\Service\ImageVerification;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +25,8 @@ class CatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $catRepository->save($cat, true);
 
-            return $this->redirectToRoute('cat_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Your cat\'s profile has been created!');
+            return $this->redirectToRoute('cat_show', ['id' => $cat->getId()]);
         }
 
         return $this->renderForm('cat/new.html.twig', [
@@ -31,18 +34,37 @@ class CatController extends AbstractController
             'form' => $form,
         ]);
     }
+
     #[Route('/', name: 'index')]
     public function index(CatRepository $catRepository): Response
     {
+        $cats = $catRepository->findAll();
         return $this->render('cat/index.html.twig', [
-            'cats' => $catRepository->findAll(),
+            'cats' => $cats,
         ]);
     }
 
-
     #[Route('/{id}', name: 'show')]
-    public function show(Cat $cat): Response
-    {
+    public function show(
+        Cat $cat,
+        CatRepository $catRepository,
+        FileUploader $fileUploader,
+        ImageVerification $imageVerification,
+        Request $request,
+    ): Response {
+        $pictureFile = $request->files->get('upload-cat-picture');
+
+        if (!empty($pictureFile)) {
+            if (!$imageVerification->imageVerification($pictureFile)) {
+                $this->addFlash('danger', 'Only use PNG, JPG ou JPEG format');
+            } else {
+                $pictureFilename = $fileUploader->upload($pictureFile);
+                $cat->setProfilePicture($pictureFilename);
+                $catRepository->save($cat, true);
+                $this->addFlash('success', 'New profile picture added!');
+            }
+        }
+
         return $this->render('cat/show.html.twig', [
             'cat' => $cat,
         ]);
@@ -57,7 +79,8 @@ class CatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $catRepository->save($cat, true);
 
-            return $this->redirectToRoute('cat_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Your cat\'s profile has been updated!');
+            return $this->redirectToRoute('cat_show', ['id' => $cat->getId()]);
         }
 
         return $this->renderForm('cat/edit.html.twig', [
@@ -73,6 +96,7 @@ class CatController extends AbstractController
             $catRepository->remove($cat, true);
         }
 
-        return $this->redirectToRoute('cat_index', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('success', 'Your cat\'s profile has been deleted!');
+        return $this->redirectToRoute('home');
     }
 }

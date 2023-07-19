@@ -81,7 +81,6 @@ class CatType extends AbstractType
                 new Assert\NotBlank(['message' => 'Don\'t forget the description']),
                 ],
             ])
-            ->add('profilePicture')
         ;
     }
 
