@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Cat{% endblock %}
+
+{% block body %}
+    <h1>Add your furry friend</h1>
+
+    {{ include('cat/_form.html.twig') }}
+
+    <a href="{{ path('home') }}">Cancel</a>
+{% endblock %}

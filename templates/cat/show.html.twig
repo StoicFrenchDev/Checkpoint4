@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cat{% endblock %}
+
+{% block body %}
+    <h1 class="text-center title-font mb-5 mt-5" >{{cat.name}}</h1>
+    <div class="d-flex justify-content-evenly flex-wrap">
+        <div class="d-flex align-items-center">
+            {% if cat.profilePicture %}
+            <img src="{{ asset('/uploads/profiles_pictures/' ~ cat.profilePicture)}}"
+                alt="photo de profil" class="rounded-circle profile-picture">
+            {% else %}
+            <img src="{{ asset('build/images/blank-profil-picture.png' )}}" alt="profile picture"
+                class="rounded-circle profile-picture">
+            {% endif %}
+        </div>
+        
+        <div class="mt-3">
+            <h2 class="text-secondary">{{ cat.age}} years old {{ cat.breed}}</h2>
+            <h2 class="text-secondary">{{ cat.sex}}</h2>
+            <h2 class="text-secondary">{{ cat.description}}</h2>
+        </div>
+    </div>
+    <a href="{{ path('cat_edit', {'id': cat.id}) }}">edit</a>
+
+    {{ include('cat/_delete_form.html.twig') }}
+{% endblock %}
