@@ -15,7 +15,7 @@ class CityFixtures extends Fixture
         foreach ($cityNames as $index => $cityName) {
             $city = new City();
             $city->setName($cityName);
-        
+
             $manager->persist($city);
             $this->addReference('city_' . ($index + 1), $city);
         }

@@ -39,7 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Cat::class, orphanRemoval: true)]
     private Collection $cats;
-
     #[ORM\ManyToOne(inversedBy: 'inhabitants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $residence = null;
@@ -181,7 +180,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResidence(?City $residence): self
     {
         $this->residence = $residence;
-
         return $this;
     }
 }
