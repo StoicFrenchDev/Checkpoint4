@@ -22,31 +22,77 @@ class UserFixtures extends Fixture
     {
         // $faker = Factory::create();
 
-        $user1 = new User();
-        $user1->setEmail('user@user.com');
-        $user1->setFirstname('Jacques');
-        $user1->setLastname('Chirac');
-        $user1->setRoles(['ROLE_USER']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user1,
-            'user1'
-        );
-        $user1->setPassword($hashedPassword);
-        $manager->persist($user1);
+        $usersData = [
+            [
+                'email' => 'thomasa@sf.com',
+                'firstname' => 'Thomas', 'lastname' => 'Aldaitz',
+                'password' => 'Thom123',
+            ],
+            [
+                'email' => 'ludovicd@sf.com',
+                'firstname' => 'Ludovic', 'lastname' => 'Dormoy',
+                'password' => 'Ludo123',
+            ],
+            [
+                'email' => 'benjaminr@sf.com',
+                'firstname' => 'Benjamin', 'lastname' => 'Richard',
+                'password' => 'Ben123',
+            ],
+            [
+                'email' => 'baptister@sf.com',
+                'firstname' => 'Baptiste', 'lastname' => 'Renier',
+                'password' => 'Bapt123',
+            ],
+            [
+                'email' => 'aurelienf@sf.com',
+                'firstname' => 'Aurelien', 'lastname' => 'Faure',
+                'password' => 'Aurel123',
+            ],
+            [
+                'email' => 'anthonyp@sf.com',
+                'firstname' => 'Anthony', 'lastname' => 'Pham',
+                'password' => 'Antho123',
+            ],
+            [
+                'email' => 'valentini@sf.com',
+                'firstname' => 'Valentin', 'lastname' => 'Inacio',
+                'password' => 'Val123',
+            ],
+            [
+                'email' => 'gwendolinen@sf.com',
+                'firstname' => 'Gwendoline', 'lastname' => 'NGuon',
+                'password' => 'Gwen123',
+            ],
+            [
+                'email' => 'fredericm@sf.com',
+                'firstname' => 'Frédéric', 'lastname' => 'Moutin',
+                'password' => 'Fred123',
+            ],
+            [
+                'email' => 'laetitiab@sf.com',
+                'firstname' => 'Laetitia', 'lastname' => 'Biny',
+                'password' => 'Laeti123',
+            ],
+        ];
 
-        $user2 = new User();
-        $user2->setEmail('user2@user.com');
-        $user2->setFirstname('Benjamin');
-        $user2->setLastname('Richard');
-        $user2->setRoles(['ROLE_USER']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user2,
-            'user2'
-        );
-        $user2->setPassword($hashedPassword);
-        $manager->persist($user2);
+        foreach ($usersData as $index => $userData) {
+            $user = new User();
+            $user->setEmail($userData['email']);
+            $user->setFirstname($userData['firstname']);
+            $user->setLastname($userData['lastname']);
+            $user->setRoles(['ROLE_USER']);
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                $userData['password']
+            );
 
+            $user->setPassword($hashedPassword);
 
+            $manager->persist($user);
+            $this->addReference('user_' . ($index + 1), $user);
+        }
+
+        $manager->flush();
         $admin = new User();
         $admin->setEmail('admin@admin.com');
         $admin->setFirstname('Quentin');
