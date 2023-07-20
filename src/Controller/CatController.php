@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cat;
+use App\Entity\User;
 use App\Form\CatType;
 use App\Repository\CatRepository;
 use App\Service\FileUploader;
@@ -20,8 +21,12 @@ class CatController extends AbstractController
     #[Route('/new', name: 'new')]
     public function new(Request $request, CatRepository $catRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $cat = new Cat();
         $form = $this->createForm(CatType::class, $cat);
+        $cat->setOwner($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -100,5 +105,17 @@ class CatController extends AbstractController
 
         $this->addFlash('success', 'Your cat\'s profile has been deleted!');
         return $this->redirectToRoute('home');
+    }
+
+    #[Route('/owner{id}', name: 'owner')]
+    public function owner(User $user): Response
+    {
+        // $cats = $user->getCats();
+
+
+        return $this->render('cat/ownerPage.html.twig', [
+            'user' => $user,
+            // 'cats' => $cats,
+        ]);
     }
 }

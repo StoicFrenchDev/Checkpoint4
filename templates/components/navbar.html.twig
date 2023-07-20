@@ -4,20 +4,26 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    {% if is_granted('ROLE_USER') %}
+    <div>Hello {{ app.user.firstname}}</div>
+    {% endif %}
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
             <a class="nav-link" href="{{ path('home') }}">Home</a>
         </li>
+        {% if is_granted('ROLE_USER') %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path('cat_new') }}">Add Cat!</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_register') }}">Join us!</a>
+          <a class="nav-link" href="{{ path('owner_page', {id : app.user.id}) }}">Your page</a>
         </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_login') }}">Login!</a>
         </li>
+        {% endif %}
       </ul>
     </div>
   </div>

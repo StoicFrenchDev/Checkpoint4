@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My page{% endblock %}
+
+{% block body %}
+<h1 class="text-center title-font mb-5 mt-5">My cats</h1>
+<div class="row">
+    {% for cat in cats %}
+        <div class="col-lg-4 text-center p-2">
+            {% if cat.profilePicture %}
+            <img src="{{ asset('/uploads/profiles_pictures/' ~ cat.profilePicture)}}"
+                alt="photo de profil" class="rounded-circle small-profile-picture">
+            {% else %}
+            <img src="{{ asset('build/images/blank-profil-picture.png' )}}" alt="profile picture"
+                class="rounded-circle small-profile-picture">
+            {% endif %}
+
+            <h2 class="fw-normal">{{ cat.name }}</h2>
+            <p>{{ cat.description|u.truncate(100, '...', false) }}</p>
+            <div class="column">
+                {% if cat.sex is same as 'Female' %}
+                <a class="btn btn-secondary m-3" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a>
+                {% else %}
+                <a class="btn btn-primary m-3" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a>
+                {% endif %}
+                {% if app.user.email is same as user.email %}
+                <button type="button" class="btn btn-danger m-0 shadow-lg text-white" data-bs-toggle="modal"
+                    data-bs-target="#deleteIdeaModal">
+                    Supprimer
+                </button>
+                {% include "components/removeCat.html.twig" %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
