@@ -6,7 +6,7 @@
 <h1 class="text-center title-font mb-5 mt-5">My cats</h1>
 <div class="row">
     {% for cat in cats %}
-        <div class="col-lg-4 text-center p-2">
+        <div class="cat-card col-lg-4 text-center p-2">
             {% if cat.profilePicture %}
             <img src="{{ asset('/uploads/profiles_pictures/' ~ cat.profilePicture)}}"
                 alt="photo de profil" class="rounded-circle small-profile-picture">

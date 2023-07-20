@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_USER')]
-class removeCatController extends AbstractController
+class RemoveCatController extends AbstractController
 {
     #[Route('/removeCat/{idCat}', name: 'remove_cat')]
     public function removeCatProfile(int $idCat, CatRepository $catRepository): Response
