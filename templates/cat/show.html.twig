@@ -21,7 +21,7 @@
             <div id="description" class="text-secondary">{{cat.description}}</div>
         </div>
     </div>
-
+    {% if app.user.email is same as cat.owner.email %}
     <div class="container d-flex justify-content-around"> 
         <button type="button" class="btn bg-third m-3" data-bs-toggle="modal"
             data-bs-target="#catProfilPictureModal">
@@ -65,8 +65,7 @@
                 </div>
             </div>
         </div>
-    {# </div> #}
-
+        {% endif %}
 
 
 {% endblock %}

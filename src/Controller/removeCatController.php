@@ -15,6 +15,7 @@ class RemoveCatController extends AbstractController
     #[Route('/removeCat/{idCat}', name: 'remove_cat')]
     public function removeCatProfile(int $idCat, CatRepository $catRepository): Response
     {
+
         if ($this->isGranted('ROLE_USER')) {
             /** @var User $user */
             $user = $this->getUser();
@@ -25,11 +26,14 @@ class RemoveCatController extends AbstractController
                 'owner' => $userId
             ]);
 
+            if (is_null($cat)) {
+                $this->addFlash('danger', 'Only the owner can delete a profile');
+                return $this->redirectToRoute('home');
+            }
 
             $catRepository->remove($cat, true);
             return new Response(status: 200);
         }
-
         return new Response(status: 403);
     }
 }

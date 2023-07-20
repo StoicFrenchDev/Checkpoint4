@@ -95,15 +95,4 @@ class CatController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    // #[Route('/{id}', name: 'delete')]
-    // public function delete(Request $request, Cat $cat, CatRepository $catRepository): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete' . $cat->getId(), $request->request->get('_token'))) {
-    //         $catRepository->remove($cat, true);
-    //     }
-
-    //     $this->addFlash('success', 'Your cat\'s profile has been deleted!');
-    //     return $this->redirectToRoute('home');
-    // }
 }

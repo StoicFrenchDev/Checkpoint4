@@ -1,4 +1,0 @@
-<form method="post" action="{{path('owner_remove_cat', {'idCat':cat.id})}}">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cat.id) }}">
-    <button class="deleteCatBtn btn btn-secondary">Delete</button>
-</form>
