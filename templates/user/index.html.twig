@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('removeCat') }}
+{% endblock %}
+{% block title %}My page{% endblock %}
+
+{% block body %}
+<h1 class="text-center title-font mb-5 mt-5">My cats</h1>
+<div class="row">
+    {% if cats is empty %}<a class="text-center title-font mb-5 mt-5" href="{{ path('cat_new') }}">Create your cat's profile here!</a>
+
+    {% else %}
+    {% for cat in cats %}
+        <div class="cat-card col-lg-4 text-center p-2">
+            {% if cat.profilePicture %}
+            <img src="{{ asset('/uploads/profiles_pictures/' ~ cat.profilePicture)}}"
+                alt="photo de profil" class="rounded-circle small-profile-picture">
+            {% else %}
+            <img src="{{ asset('build/images/blank-profil-picture.png' )}}" alt="profile picture"
+                class="rounded-circle small-profile-picture">
+            {% endif %}
+
+            <h2 class="fw-normal">{{ cat.name }}</h2>
+            <p>{{ cat.description|u.truncate(100, '...', false) }}</p>
+            <div class="column">
+                {% if cat.sex is same as 'Female' %}
+                <a class="btn btn-secondary m-3" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a>
+                {% else %}
+                <a class="btn btn-primary m-3" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a>
+                {% endif %}
+                {% if app.user.email is same as user.email %}
+                <button type="button" class="btn btn-secondary m-0 shadow-lg text-white" data-bs-toggle="modal"
+                    data-bs-target="#deleteIdeaModal">
+                    Supprimer
+                </button>
+                <div class="modal fade" id="deleteIdeaModal" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Supprimer cette idée
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Êtes vous sur de vouloir supprimer cette idée ?</p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Annuler</button>
+                                <a data-bs-dismiss="modal" class="deleteCatBtn btn btn-secondary m-0 shadow-lg text-white" href="{{ path('remove_cat', {'idCat': cat.id}) }}">Confirmer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

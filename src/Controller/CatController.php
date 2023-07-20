@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cat;
+use App\Entity\User;
 use App\Form\CatType;
 use App\Repository\CatRepository;
 use App\Service\FileUploader;
@@ -11,15 +12,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/cat', name: 'cat_')]
 class CatController extends AbstractController
 {
     #[Route('/new', name: 'new')]
     public function new(Request $request, CatRepository $catRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $cat = new Cat();
         $form = $this->createForm(CatType::class, $cat);
+        $cat->setOwner($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -87,16 +94,5 @@ class CatController extends AbstractController
             'cat' => $cat,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'delete')]
-    public function delete(Request $request, Cat $cat, CatRepository $catRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $cat->getId(), $request->request->get('_token'))) {
-            $catRepository->remove($cat, true);
-        }
-
-        $this->addFlash('success', 'Your cat\'s profile has been deleted!');
-        return $this->redirectToRoute('home');
     }
 }

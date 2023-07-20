@@ -31,6 +31,9 @@ class Cat
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
+    #[ORM\ManyToOne(inversedBy: 'cats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
 
     public function getId(): ?int
     {
@@ -106,6 +109,17 @@ class Cat
     {
         $this->profilePicture = $profilePicture;
 
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
         return $this;
     }
 }
