@@ -21,8 +21,16 @@
 <div class="row">
     <h2 class=" mb-5 mt-5">New cats on the block!</h2>
     {{ component('recentCats') }}
-    
 </div>
+
+
+{% if is_granted('ROLE_USER') %}
+    <hr class="border-2 color-third opacity-50 my-2 ">
+    <div class="row">
+        <h2 class=" mb-5 mt-5">Cats from {{app.user.residence.name}}</h2>
+        {{ component('closeCats') }}
+    </div>
+{% endif %}
 
 
 {% endblock %}
