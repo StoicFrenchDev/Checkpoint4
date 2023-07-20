@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Cat;
+use App\Entity\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,27 @@ class CatRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getSameCityCats(int $residenceId): array
+    {
+        return $this->createQueryBuilder('c')
+        ->select(
+            'c.id',
+            'c.name',
+            'c.age',
+            'c.profilePicture',
+            'c.breed',
+            'c.sex',
+            'c.description',
+            'c.age',
+        )
+        ->innerJoin('c.owner', 'u')
+        ->innerJoin('u.residence', 'o')
+        ->where('o.id = :residenceId')
+        ->setParameter('residenceId', $residenceId)
+        ->getQuery()
+        ->getResult();
     }
 
 //    /**
