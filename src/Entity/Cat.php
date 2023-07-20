@@ -31,6 +31,7 @@ class Cat
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
+
     #[ORM\ManyToOne(inversedBy: 'cats')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
