@@ -4,12 +4,13 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 // use Faker\Factory;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $passwordHasher;
 
@@ -81,6 +82,7 @@ class UserFixtures extends Fixture
             $user->setFirstname($userData['firstname']);
             $user->setLastname($userData['lastname']);
             $user->setRoles(['ROLE_USER']);
+            $user->setResidence($this->getReference('city_' . mt_rand(1, 3)));
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
                 $userData['password']
@@ -98,6 +100,7 @@ class UserFixtures extends Fixture
         $admin->setFirstname('Quentin');
         $admin->setLastname('Tarantino');
         $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setResidence($this->getReference('city_' . mt_rand(1, 3)));
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
             'admin'
@@ -106,5 +109,12 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            CityFixtures::class,
+        ];
     }
 }
