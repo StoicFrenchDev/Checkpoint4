@@ -28,7 +28,29 @@
                     data-bs-target="#deleteIdeaModal">
                     Supprimer
                 </button>
-                {% include "components/removeCat.html.twig" %}
+                <div class="modal fade" id="deleteIdeaModal" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Supprimer cette idée
+                                </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Êtes vous sur de vouloir supprimer cette idée ?</p>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary text-white"
+                                    data-bs-dismiss="modal">Annuler</button>
+                                <a class="nav-link deleteCatBtn" href="{{path('remove_cat', {'idCat': cat.id})}}">Confirmer</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>

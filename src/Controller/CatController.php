@@ -96,26 +96,14 @@ class CatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete')]
-    public function delete(Request $request, Cat $cat, CatRepository $catRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $cat->getId(), $request->request->get('_token'))) {
-            $catRepository->remove($cat, true);
-        }
+    // #[Route('/{id}', name: 'delete')]
+    // public function delete(Request $request, Cat $cat, CatRepository $catRepository): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete' . $cat->getId(), $request->request->get('_token'))) {
+    //         $catRepository->remove($cat, true);
+    //     }
 
-        $this->addFlash('success', 'Your cat\'s profile has been deleted!');
-        return $this->redirectToRoute('home');
-    }
-
-    #[Route('/owner{id}', name: 'owner')]
-    public function owner(User $user): Response
-    {
-        // $cats = $user->getCats();
-
-
-        return $this->render('cat/ownerPage.html.twig', [
-            'user' => $user,
-            // 'cats' => $cats,
-        ]);
-    }
+    //     $this->addFlash('success', 'Your cat\'s profile has been deleted!');
+    //     return $this->redirectToRoute('home');
+    // }
 }
