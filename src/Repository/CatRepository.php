@@ -40,7 +40,7 @@ class CatRepository extends ServiceEntityRepository
         }
     }
 
-    public function getSameCityCats(int $residenceId): array
+    public function getSameCityCats(int $residenceId, int $userId): array
     {
         return $this->createQueryBuilder('c')
         ->select(
@@ -56,7 +56,9 @@ class CatRepository extends ServiceEntityRepository
         ->innerJoin('c.owner', 'u')
         ->innerJoin('u.residence', 'o')
         ->where('o.id = :residenceId')
+        ->andWhere('u.id <> :userId')
         ->setParameter('residenceId', $residenceId)
+        ->setParameter('userId', $userId)
         ->getQuery()
         ->getResult();
     }

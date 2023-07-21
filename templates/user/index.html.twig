@@ -21,7 +21,7 @@
                 class="rounded-circle small-profile-picture">
             {% endif %}
 
-            <h2 class="fw-normal">{{ cat.name }}</h2>
+            <h2 class="fw-normal title-font">{{ cat.name }}</h2>
             <p>{{ cat.description|u.truncate(100, '...', false) }}</p>
             <div class="column">
                 {% if cat.sex is same as 'Female' %}
@@ -30,9 +30,9 @@
                 <a class="btn btn-primary m-3" href="{{ path('cat_show', {'id': cat.id}) }}">Profile</a>
                 {% endif %}
                 {% if app.user.email is same as user.email %}
-                <button type="button" class="btn btn-secondary m-0 shadow-lg text-white" data-bs-toggle="modal"
+                <button type="button" class="btn btn-secondary m-0 shadow-lg" data-bs-toggle="modal"
                     data-bs-target="#deleteIdeaModal">
-                    Supprimer
+                    Delete profile
                 </button>
                 <div class="modal fade" id="deleteIdeaModal" data-bs-backdrop="static"
                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
@@ -40,17 +40,17 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Supprimer cette idée
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete profile
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Êtes vous sur de vouloir supprimer cette idée ?</p>
+                                <p>Are you sure about deleting this profile?</p>
                             </div>
                             <div class="modal-footer d-flex justify-content-between">
-                                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Annuler</button>
-                                <a data-bs-dismiss="modal" class="deleteCatBtn btn btn-secondary m-0 shadow-lg text-white" href="{{ path('remove_cat', {'idCat': cat.id}) }}">Confirmer</a>
+                                <button type="button" class="btn btn-primary text-white" data-bs-dismiss="modal">Cancel</button>
+                                <a data-bs-dismiss="modal" class="deleteCatBtn btn btn-secondary m-0 shadow-lg text-white" href="{{ path('remove_cat', {'idCat': cat.id}) }}">Confirm</a>
                             </div>
                         </div>
                     </div>
