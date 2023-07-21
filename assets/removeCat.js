@@ -11,7 +11,7 @@ for(const deleteCatBtn of deleteCatBtns) {
 
                     const flashMessage = document.createElement('div');
                     flashMessage.classList.add('alert', 'alert-success', 'flash-message');
-                    flashMessage.textContent = "L'idée a bien été signalée.";
+                    flashMessage.textContent = "Cat profile successfully removed";
                     
                     flashMessage.setAttribute('role', 'alert');
                     

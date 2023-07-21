@@ -1,33 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-third">
   <div class="container-fluid">
     <a class="navbar-brand title-font" href="{{ path('home') }}">PurrfectMatch</a>
-    {% if is_granted('ROLE_USER') %}
+    {# {% if is_granted('ROLE_USER') %}
     <div>Hello {{ app.user.firstname}}</div>
-    {% endif %}
+    {% endif %} #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('home') }}">Home</a>
-        </li>
+    <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+          <a class="nav-link" href="{{ path('home') }}">Home</a>
         {% if is_granted('ROLE_USER') %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('cat_new') }}">Add Cat!</a>
-        </li>
-        <li class="nav-item">
+          <a class="nav-link" href="{{ path('cat_new') }}">Add cat profile</a>
           <a class="nav-link" href="{{ path('owner_page', {id : app.user.id}) }}">Your page</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_logout') }}">Logout!</a>
-        </li>
+          <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_login') }}">Login!</a>
-        </li>
+          <a class="nav-link" href="{{ path('app_login') }}">Login</a>
         {% endif %}
-      </ul>
+      </div>
     </div>
   </div>
 </nav>

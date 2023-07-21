@@ -29,9 +29,10 @@ class SameCityProfilesComponent extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        $userId = $user->getId();
 
         $residenceId = $user->getResidence()->getId();
 
-        return $this->catRepository->getSameCityCats($residenceId);
+        return $this->catRepository->getSameCityCats($residenceId, $userId);
     }
 }
