@@ -31,10 +31,10 @@
                 {% endif %}
                 {% if app.user.email is same as user.email %}
                 <button type="button" class="btn btn-secondary m-0 shadow-lg" data-bs-toggle="modal"
-                    data-bs-target="#deleteIdeaModal">
+                    data-bs-target="#deleteIdeaModal_{{ cat.id }}">
                     Delete profile
                 </button>
-                <div class="modal fade" id="deleteIdeaModal" data-bs-backdrop="static"
+                <div class="modal fade" id="deleteIdeaModal_{{ cat.id }}" data-bs-backdrop="static"
                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                 aria-hidden="true">
                     <div class="modal-dialog">
